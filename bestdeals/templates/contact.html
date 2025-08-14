@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Best Deals</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1 class="logo">Best Deals</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}" class="active">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Have questions or need support? Reach out to us.</p>
+
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h3>Our Details</h3>
+                <p><strong>Email:</strong> support@bestdeals.com</p>
+                <p><strong>Phone:</strong> +91 9188113618</p>
+                <p><strong>Live Chat Support:</strong> Available 24/7 on our website</p>
+                <p><strong>Stay Updated:</strong> Follow us for daily deals, shopping tips, and exclusive offers!</p>
+                <p>📸 Instagram: @bestdeals_official</p>
+            </div>
+
+            <!-- Contact Form -->
+            <form class="contact-form" method="POST" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <h3>Send Us a Message</h3>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+    </section>
+</body>
+</html>
+       

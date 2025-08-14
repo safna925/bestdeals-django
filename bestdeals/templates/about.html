@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Best Deals</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Best Deals</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}" class="active">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h1>About Best Deals</h1>
+        <p><strong>Best Deals</strong> is a product comparison platform that helps you find the best prices for your favorite products. We compare prices from <strong>Amazon</strong> and <strong>Flipkart</strong> to ensure you get the best deal.</p>
+
+        <h2>Why Use Best Deals?</h2>
+        <ul>
+            <li>🔍 Compare prices easily – View and compare prices from multiple platforms in one place.</li>
+            <li>⏳ Save time – No need to check multiple websites manually.</li>
+            <li>💰 Save money – Get the best deal available.</li>
+            <li>⚡ Smart shopping – Make informed purchasing decisions.</li>
+        </ul>
+
+        <h2>How It Works</h2>
+        <ol>
+            <li>Search for a product by name.</li>
+            <li>View and compare prices from Amazon and Flipkart.</li>
+            <li>Select the best deal and make a smart purchase!</li>
+        </ol>
+
+        <p>At Best Deals, we make shopping effortless and budget-friendly. Start comparing now and save more!</p>
+    </section>
+</body>
+</html> 

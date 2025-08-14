@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Deals</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Best Deals</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Login Dropdown -->
+        <div class="login-container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_logout' %}" class="logout-btn">Login</a>
+            {% else %}
+                <button class="login-btn">Login ▼</button>
+                <div class="dropdown">
+                    <a href="{% url 'user_login' %}">User Login</a>
+                    <a href="{% url 'admin_login' %}">Admin Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <h1 class="welcome-title">Welcome to Best Deals</h1>
+        <img src="{% static 'bestdeal.jpg' %}" alt="shopping cart" class="cart-icon">  
+        <h2 class="main-title">Find the <span>Best Deals</span> on Your Favorite Products!</h2>
+        <p class="auth-text">Login or create an account to start comparing prices and saving money!</p>
+    </section>
+</body>
+</html>   
+   

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Amazon & Flipkart Prices</title>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Main container */
+        .compare-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Search Bar */
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Product comparison section */
+        .compare-section {
+            display: flex;
+            justify-content: space-between; /* Forces side-by-side layout */
+            align-items: flex-start;
+            gap: 20px; /* Space between boxes */
+            margin-top: 20px;
+        }
+
+        /* Individual product box */
+        .product-box {
+            flex: 1; /* Ensures equal width */
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 48%; /* Ensures side-by-side layout */
+        }
+
+        /* Product image */
+        .product-img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Price */
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 10px;
+        }
+
+        /* Product link */
+        .product-link {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .product-link:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive for small screens */
+        @media (max-width: 768px) {
+            .compare-section {
+                flex-direction: row;
+                flex-wrap: nowrap; /* Prevents stacking */
+                overflow-x: auto; /* Enables horizontal scroll */
+                gap: 10px;
+            }
+            .product-box {
+                min-width: 48%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Compare Prices: Amazon vs Flipkart</h2>
+
+    <!-- Search Bar -->
+    <form method="GET" action="{% url 'comparison' %}">
+        <input type="text" name="product_name" placeholder="Enter Product Name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if search_query %}
+        <h3>Results for "{{ search_query }}"</h3>
+
+        <div class="compare-section">
+            <div class="product-box">
+                {% if amazon_product %}
+                    <h3>Amazon</h3>
+                    <img class="product-img" src="{{ amazon_product.image.url }}" alt="Amazon Product">
+                    <p><strong>Name:</strong> {{ amazon_product.product_name }}</p>
+                    <p><strong>Brand:</strong> {{ amazon_product.brand }}</p>
+                    <p class="price"><strong>Price:</strong> ₹{{ amazon_product.price }}</p>
+                    <p><strong>Description:</strong> {{ amazon_product.description }}</p>
+                    <p><strong>Reviews:</strong> {{ amazon_product.reviews }}</p>
+                    <a class="product-link" href="{{ amazon_product.url }}" target="_blank">View on Amazon</a>
+                {% else %}
+                    <p>No results found for Amazon.</p>
+                {% endif %}
+            </div>
+
+            <div class="product-box">
+                {% if flipkart_product %}
+                    <h3>Flipkart</h3>
+                    <img class="product-img" src="{{ flipkart_product.image.url }}" alt="Flipkart Product">
+                    <p><strong>Name:</strong> {{ flipkart_product.product_name }}</p>
+                    <p><strong>Brand:</strong> {{ flipkart_product.brand }}</p>
+                    <p class="price"><strong>Price:</strong> ₹{{ flipkart_product.price }}</p>
+                    <p><strong>Description:</strong> {{ flipkart_product.description }}</p>
+                    <p><strong>Reviews:</strong> {{ flipkart_product.reviews }}</p>
+                    <a class="product-link" href="{{ flipkart_product.url }}" target="_blank">View on Flipkart</a>
+                {% else %}
+                    <p>No results found for Flipkart.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

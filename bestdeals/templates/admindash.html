@@ -1,0 +1,114 @@
+{% load static %}
+{% if not request.session.admin_authenticated %}
+    <script>
+        window.location.href = "{% url 'admin_login' %}";
+    </script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Admin Profile Section -->
+        <div class="profile">
+            <img src="{% static 'images/profile.jpeg' %}" alt="Admin Profile" />
+            <h3>Admin</h3>
+            <p>Best Deals</p>
+        </div>
+
+        <ul>
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li onclick="showMyStore()">
+                <i class="fas fa-store"></i> My Store
+            </li>
+            <li onclick="showMessages()">
+                <i class="fas fa-envelope"></i> Messages
+            </li>
+            <li><a href="{% url 'admin_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h2>Dashboard</h2>
+            <button class="download-btn" onclick="downloadReport()">Download Report</button>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <div class="dashboard-info">
+            <div class="card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>1020</h3>
+                <p>New Orders</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>2834</h3>
+                <p>Visitors</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>$2543</h3>
+                <p>Total Sales</p>
+            </div>
+        </div>
+
+        <!-- My Store Section -->
+        <div id="myStore" class="hidden">
+            <h3>My Store Overview</h3>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>01-10-2021</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>Jane Doe</td>
+                    <td>02-10-2021</td>
+                    <td>Pending</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Messages Section -->
+        <div id="messages" class="hidden">
+            <h3>User Messages</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                </tr>
+                <tr>
+                    <td>Alex</td>
+                    <td>alex@example.com</td>
+                    <td>Need help with an order.</td>
+                </tr>
+                <tr>
+                    <td>Sarah</td>
+                    <td>sarah@example.com</td>
+                    <td>Issue with payment.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
